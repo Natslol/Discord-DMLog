@@ -7,10 +7,9 @@ client.on('ready', async () => {
 })
 
 client.on('messageDelete', (deletedMessage) => {
-    if (/^<@(\d+)>$/gm.test(deletedMessage.channel)) {
-        if(deletedMessage.author.id === client.user.id) return;
-        console.log(`\nMessage deleted from ${deletedMessage.author.tag} - "${deletedMessage.content}"`)
-    }
+    if (deletedMessage.channel.type === "DM")
+        if(deletedMessage.author.id !== client.user.id)
+            console.log(`\n[${deletedMessage.author.tag}] ${deletedMessage.content}`);
 })
 
 client.login(process.env.YOUR_TOKEN);
